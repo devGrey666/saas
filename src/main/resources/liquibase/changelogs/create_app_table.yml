@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20240417001000-1
+      author: Aleem Awan
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+            remarks: Table for application
+            tableName: app

@@ -1,3 +1,34 @@
 spring:
   application:
     name: saas
+  devtools:
+    add-properties: false
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+    show-sql: false
+  datasource:
+    hikari:
+      maximum-pool-size: 3
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  liquibase:
+    enabled: true
+    dropFirst: false
+    changeLog: classpath:/liquibase/master.yaml
+  profiles:
+    active: local
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api/
+  error:
+    whitelabel:
+      enabled: false
+
