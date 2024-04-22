@@ -12,15 +12,21 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
     show-sql: false
+    database-platform: org.hibernate.dialect.MYSQL5Dialect
   datasource:
+    url-prefix: jdbc:mysql://localhost:3306/
     hikari:
       maximum-pool-size: 3
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   liquibase:
     enabled: true
-    dropFirst: false
     changeLog: classpath:/liquibase/master.yaml
+
+  tenants-liquibase:
+    enabled: true
+    changeLog: classpath:/liquibase/tenants.yaml
+    drop-first: true
   profiles:
     active: local
 
