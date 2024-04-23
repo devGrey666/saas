@@ -1,0 +1,11 @@
+databaseChangeLog:
+  # Roles seeder
+  - changeSet:
+      id: 1
+      author: grey
+      changes:
+        - loadData:
+            relativeToChangelogFile: true
+            file: tenants.csv
+            tableName: tenants
+            separator: ;

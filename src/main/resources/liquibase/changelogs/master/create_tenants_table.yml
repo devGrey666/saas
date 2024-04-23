@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_table_tenants
+      author: Grey
+      changes:
+        - createTable:
+            tableName: tenants
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: tenant_id
+                  type: VARCHAR(30)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tenant_url
+                  type: VARCHAR(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: user_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: tenant_pwd
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: version
+                  type: INT
+                  constraints:
+                    nullable: false
+                    defaultValue: 0

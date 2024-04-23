@@ -1,3 +1,6 @@
 databaseChangeLog:
   - includeAll:
-      path: liquibase/changelogs
+      path: liquibase/changelogs/master
+  - include:
+      file: data/master/seeder.yaml
+      relativeToChangelogFile: true
