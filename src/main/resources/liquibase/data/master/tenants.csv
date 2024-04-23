@@ -1,0 +1,3 @@
+id;tenant_id;tenant_url;user_name;tenant_pwd;version
+1;tenant1;http://example.com/user1;user;dummy_pwd;1
+2;tenant2;http://example.com/user2;user;dummy_pwd;1
