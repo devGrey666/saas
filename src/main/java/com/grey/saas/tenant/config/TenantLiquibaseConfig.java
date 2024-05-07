@@ -11,13 +11,13 @@ import org.springframework.context.annotation.Primary;
 
 @Lazy(false)
 @Configuration
-@ConditionalOnProperty(name = "spring.tenants-liquibase.enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(name = "spring.liquibase.enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(LiquibaseProperties.class)
 public class TenantLiquibaseConfig {
 
     @Primary
     @Bean
-    @ConfigurationProperties("spring.tenants-liquibase")
+    @ConfigurationProperties("spring.liquibase")
     public LiquibaseProperties tenantLiquibaseProperties() {
         return new LiquibaseProperties();
     }

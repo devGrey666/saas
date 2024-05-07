@@ -40,7 +40,7 @@ public class TenantPersistenceConfig {
     @Value("com.grey.saas.tenant.service")
     private String entityPackages;
 
-    @Primary
+
     @Bean
     public LocalContainerEntityManagerFactoryBean tenantEntityManagerFactory(
             @Qualifier("dataSourceBasedMultiTenantConnectionProviderImpl") MultiTenantConnectionProvider connectionProvider,
@@ -65,7 +65,7 @@ public class TenantPersistenceConfig {
         return emfBean;
     }
 
-    @Primary
+
     @Bean
     public JpaTransactionManager tenantTransactionManager(
             @Qualifier("tenantEntityManagerFactory") EntityManagerFactory emf) {
