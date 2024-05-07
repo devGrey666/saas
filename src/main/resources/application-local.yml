@@ -16,5 +16,3 @@ spring:
     connectionTimeout: 20000
     idleTimeout: 300000
     poolName: sass-connection-pool
-  liquibase:
-    drop-first: true
