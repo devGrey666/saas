@@ -21,14 +21,21 @@ spring:
 
   liquibase:
     enabled: true
-    changeLog: classpath:/liquibase/master.yaml
+    changeLog: classpath:/liquibase/tenants.yaml
+    drop-first: true
 
   tenants-liquibase:
     enabled: true
-    changeLog: classpath:/liquibase/tenants.yaml
+    changeLog: classpath:/liquibase/master.yaml
     drop-first: true
+
   profiles:
     active: local
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.hibernate: ERROR
+
 
 server:
   port: 8080
