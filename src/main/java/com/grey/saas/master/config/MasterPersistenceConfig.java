@@ -30,6 +30,7 @@ import java.util.Map;
 @EnableJpaRepositories(basePackages = {"com.grey.saas.master.repository", "com.grey.saas.master.model"}, entityManagerFactoryRef = "masterEntityManagerFactory", transactionManagerRef = "masterTransactionManager")
 @EnableConfigurationProperties({DataSourceProperties.class, JpaProperties.class})
 public class MasterPersistenceConfig {
+
     private final ConfigurableListableBeanFactory beanFactory;
 
     private final JpaProperties jpaProperties;
