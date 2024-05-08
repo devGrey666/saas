@@ -27,7 +27,7 @@ public final class DataSourceUtil {
         ds.setUsername(masterTenant.getUsername());
         ds.setPassword(masterTenant.getPassword());
         ds.setJdbcUrl(masterTenant.getUrl());
-        ds.setDriverClassName("com.mysql.jdbc.Driver");
+        ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
         // HikariCP settings - could come from the master_tenant table but
         // hardcoded here for brevity
