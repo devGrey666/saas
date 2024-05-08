@@ -31,7 +31,7 @@ import java.util.Properties;
 public class DynamicDataSourceBasedMultiTenantSpringLiquibase implements InitializingBean, ResourceLoaderAware {
 
     @Autowired
-    private MasterTenantRepository tenantRepository;
+    private MasterTenantRepository masterTenantRepository;
 
     @Autowired
     @Qualifier("tenantLiquibaseProperties")
@@ -51,7 +51,7 @@ public class DynamicDataSourceBasedMultiTenantSpringLiquibase implements Initial
     @Override
     public void afterPropertiesSet() throws Exception {
         log.info("DynamicDataSources based multitenancy enabled");
-        this.runOnAllTenants(tenantRepository.findAll());
+        this.runOnAllTenants(masterTenantRepository.findAll());
     }
 
     protected void runOnAllTenants(Collection<MasterTenantEntity> tenants) {
@@ -83,7 +83,7 @@ public class DynamicDataSourceBasedMultiTenantSpringLiquibase implements Initial
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setResourceLoader(getResourceLoader());
         liquibase.setDataSource(dataSource);
-        liquibase.setChangeLog(liquibaseProperties.getChangeLog());
+        liquibase.setChangeLog("classpath:/liquibase/tenants.yaml");
         liquibase.setContexts(liquibaseProperties.getContexts());
         liquibase.setLiquibaseSchema(liquibaseProperties.getLiquibaseSchema());
         liquibase.setLiquibaseTablespace(liquibaseProperties.getLiquibaseTablespace());
