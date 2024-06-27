@@ -1,13 +1,12 @@
 package com.grey.saas.master.util;
 
 
-import javax.sql.DataSource;
-
 import com.grey.saas.master.model.MasterTenantEntity;
+import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.zaxxer.hikari.HikariDataSource;
+import javax.sql.DataSource;
 
 
 public final class DataSourceUtil {
@@ -15,18 +14,20 @@ public final class DataSourceUtil {
     private static final Logger LOG = LoggerFactory
             .getLogger(DataSourceUtil.class);
 
+
     /**
      * Utility method to create and configure a data source
      *
      * @param masterTenant
+     * @param urlPrefix
      * @return
      */
     public static DataSource createAndConfigureDataSource(
-            MasterTenantEntity masterTenant) {
+            MasterTenantEntity masterTenant, String urlPrefix) {
         HikariDataSource ds = new HikariDataSource();
         ds.setUsername(masterTenant.getUsername());
         ds.setPassword(masterTenant.getPassword());
-        ds.setJdbcUrl(masterTenant.getUrl());
+        ds.setJdbcUrl(urlPrefix + masterTenant.getTenantId());
         ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
         // HikariCP settings - could come from the master_tenant table but
