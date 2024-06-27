@@ -1,9 +1,6 @@
 package com.grey.saas.tenant.helper;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-
-import java.util.Collection;
+import com.grey.saas.tenant.model.User;
 
 public class CustomUserDetails extends User {
     private static final long serialVersionUID = 1L;
@@ -13,21 +10,21 @@ public class CustomUserDetails extends User {
      */
     private String tenant;
 
-    /**
-     * Constructor based on the spring security User class but with an extra
-     * argument <code>tenant</code> to store the tenant name submitted by the
-     * end user.
-     *
-     * @param username
-     * @param password
-     * @param authorities
-     * @param tenant
-     */
-    public CustomUserDetails(String username, String password,
-                             Collection<? extends GrantedAuthority> authorities, String tenant) {
-        super(username, password, authorities);
-        this.tenant = tenant;
-    }
+//    /**
+//     * Constructor based on the spring security User class but with an extra
+//     * argument <code>tenant</code> to store the tenant name submitted by the
+//     * end user.
+//     *
+//     * @param username
+//     * @param password
+//     * @param authorities
+//     * @param tenant
+//     */
+//   public CustomUserDetails(String username, String password,
+//                            Collection<? extends GrantedAuthority> authorities, String tenant) {
+//       super(username, password, authorities);
+//       this.tenant = tenant;
+//    }
 
     // Getters and Setters
     public String getTenant() {
