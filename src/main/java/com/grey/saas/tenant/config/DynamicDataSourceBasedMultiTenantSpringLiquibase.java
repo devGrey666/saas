@@ -1,5 +1,6 @@
 package com.grey.saas.tenant.config;
 
+import com.grey.saas.events.SaveTenantEvent;
 import com.grey.saas.master.model.MasterTenantEntity;
 import com.grey.saas.master.repository.MasterTenantRepository;
 import liquibase.exception.LiquibaseException;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
@@ -21,14 +23,16 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Properties;
 
 @Getter
 @Setter
 @Slf4j
 @Component
-public class DynamicDataSourceBasedMultiTenantSpringLiquibase implements InitializingBean, ResourceLoaderAware {
+public class DynamicDataSourceBasedMultiTenantSpringLiquibase implements InitializingBean, ResourceLoaderAware, ApplicationListener<SaveTenantEvent> {
 
     @Autowired
     private MasterTenantRepository masterTenantRepository;
@@ -49,7 +53,7 @@ public class DynamicDataSourceBasedMultiTenantSpringLiquibase implements Initial
     private ResourceLoader resourceLoader;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         log.info("DynamicDataSources based multitenancy enabled");
         this.runOnAllTenants(masterTenantRepository.findAll());
     }
@@ -96,5 +100,15 @@ public class DynamicDataSourceBasedMultiTenantSpringLiquibase implements Initial
         liquibase.setRollbackFile(liquibaseProperties.getRollbackFile());
         liquibase.setTestRollbackOnUpdate(liquibaseProperties.isTestRollbackOnUpdate());
         return liquibase;
+    }
+
+    @Override
+    public void onApplicationEvent(SaveTenantEvent event) {
+        var tenant = masterTenantRepository.findByTenantId(event.getTenantId());
+        if (tenant.isPresent()) {
+            List<MasterTenantEntity> list = new ArrayList<>();
+            list.add(tenant.get());
+            this.runOnAllTenants(list);
+        }
     }
 }
