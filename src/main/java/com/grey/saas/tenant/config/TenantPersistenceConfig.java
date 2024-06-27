@@ -12,7 +12,6 @@ import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate5.SpringBeanContainer;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -27,7 +26,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Configuration
 @EnableJpaRepositories(
-        basePackages = {"com.grey.saas.tenant.model" },
+        basePackages = {"com.grey.saas.tenant.repository","com.grey.saas.tenant.service" },
         entityManagerFactoryRef = "tenantEntityManagerFactory",
         transactionManagerRef = "tenantTransactionManager"
 )
@@ -37,7 +36,7 @@ public class TenantPersistenceConfig {
     private final ConfigurableListableBeanFactory beanFactory;
     private final JpaProperties jpaProperties;
 
-    @Value("com.grey.saas.tenant.service")
+    @Value("${tenant.entity.packages}")
     private String entityPackages;
 
 
