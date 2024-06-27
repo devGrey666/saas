@@ -1,3 +1,1 @@
-id;tenant_id;tenant_url;user_name;tenant_pwd;version
-1;tenant1;http://example.com/user1;user;dummy_pwd;1
-2;tenant2;http://example.com/user2;user;dummy_pwd;1
+id;tenant_id;email;sub_domain;domain;user_name;tenant_pwd;tenant_url;version;is_active;no_of_process;created_at;created_by;updated_at;updated_by;is_deleted
