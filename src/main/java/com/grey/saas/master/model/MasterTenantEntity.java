@@ -1,5 +1,6 @@
 package com.grey.saas.master.model;
 
+import com.grey.saas.base.entities.BaseFullAudit;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -9,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "tenants")
-public class MasterTenantEntity {
+public class MasterTenantEntity extends BaseFullAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -19,26 +20,28 @@ public class MasterTenantEntity {
     @Column(name = "tenant_id")
     private String tenantId;
 
-    @Size(max = 256)
-    @Column(name = "tenant_url")
-    private String url;
+    @Column(name = "email", nullable = false)
+    private String email;
 
-    @Column(name = "user_name")
+    @Column(name = "domain", nullable = false)
+    private String domain;
+
+    @Column(name = "sub_domain", nullable = false)
+    private String subDomain;
+
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
+
+    @Column(name = "no_of_process", nullable = false)
+    private int noOfProcess;
+
+    @Column(name = "user_name", nullable = false)
     private String username;
-
-    /**
-     * For simplicity, we are not storing an encrypted password. In production
-     * this should be an encrypted password.
-     */
 
     @Column(name = "tenant_pwd")
     private String password;
 
-    /**
-     * Specifies the version field or property of an entity class that serves as
-     * its optimistic lock value. The version is used to ensure integrity when
-     * performing the merge operation and for optimistic concurrency control.
-     */
-    @Version
-    private int version = 0;
+    @Column(name = "tenant_url")
+    private String url;
+
 }
